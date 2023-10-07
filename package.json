@@ -1,0 +1,15 @@
+{
+  "name": "pp-cms",
+  "version": "1.0.0",
+  "description": "cms",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.0.14",
+    "bulma": "^0.9.4"
+  }
+}
