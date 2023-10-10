@@ -4,16 +4,10 @@ require("vendor/autoload.php");
 
 $fw = Base::instance();
 
-$fw->route("GET /",function($fw){ 
-
-
-    
+$fw->route("GET /",function($fw){
     $fw->set('name','world');
     echo \Template::instance()->render('template.htm');
-    
-
-
- });
+});
 
 
 
