@@ -1,7 +1,5 @@
 <?php
-
 require("vendor/autoload.php");
-
 $fw = Base::instance();
 
 $fw->route("GET /",function($fw){
@@ -9,11 +7,16 @@ $fw->route("GET /",function($fw){
     echo \Template::instance()->render('template.htm');
 });
 
+$fw->route("GET /login",function($fw){ 
+    echo \Template::instance()->render('app/views/admin/login.htm');
+});
+$fw->route("POST /login",function($fw){ 
+    echo "Recivido";
+});
 
-
-$fw->route("GET /hola",function($fw){ echo "Hola Amigo"; });
-$fw->route("GET /admin",function($fw){ echo "Form Admin"; });
-
+$fw->route("GET /admin",function($fw){ 
+    echo \Template::instance()->render('app/views/admin/index.htm');
+ });
 
 $fw->set('ONERROR',
     function($fw) {
@@ -24,9 +27,6 @@ $fw->set('ONERROR',
     }
 );
 
-
-
 $fw->run();
-
 
 ?>
