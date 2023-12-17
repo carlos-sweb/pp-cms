@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/dist/master.css">    
-    <link href="fonts/Ubuntu/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dist/master.css">    
+    <link href="/fonts/Ubuntu/index.css" rel="stylesheet">
     <style>
         *{font-family: 'Ubuntu', sans-serif;}
         *{
