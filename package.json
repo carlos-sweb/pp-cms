@@ -10,6 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.0.14",
-    "bulma": "^0.9.4"
+    "bulma": "^0.9.4",
+    "pp-events": "^1.2.3",
+    "pp-is": "^1.1.0",
+    "pp-model.js": "^1.2.7",
+    "pp-router.js": "^2.1.8",
+    "pp-validate": "^1.0.1"
   }
 }
