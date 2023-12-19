@@ -1,5 +1,6 @@
-<div class="gray100 mt-10 w-72 pb-4 rounded elevation-1 flex flex-col justify-start ">
-    <form action="/login" method="POST" >
+<div class="gray100 mt-10 pb-4 rounded elevation-1 flex flex-col justify-start ">
+    <form action="/login" method="POST" autocomplete="off">
+        <input type="hidden" name="csrf" type="text" value="<?= ($CSRF) ?>" >
         <div class="green300 h-14 flex items-center">
             <span class="font-bold text-3xl pl-3 text-gray900" >Acceso</span>
         </div>
