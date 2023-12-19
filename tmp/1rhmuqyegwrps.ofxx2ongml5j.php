@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="es" class="flex w-full h-full">
+<!DOCTYPE html><html lang="en" class="flex w-full h-full">
 <head>
     <meta charset="UTF-8">
     <?php foreach (($meta?:[]) as $item): ?>

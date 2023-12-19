@@ -6,6 +6,14 @@ class CtlBase{
         $f3 = \Base::instance();
         return $f3->exists("SESSION.ID") && $f3->exists("SESSION.name");
     }
+    public function minify($html) {
+        // Eliminar espacios en blanco y saltos de línea entre las etiquetas
+        $html = preg_replace('/\s+/', ' ', $html);    
+        // Eliminar espacios en blanco antes y después de las etiquetas
+        $html = preg_replace('/\s*<\s*/', '<', $html);
+        $html = preg_replace('/\s*>\s*/', '>', $html);    
+        return $html;
+    }    
     public function render($f3 , $content ){
         $f3->set("title","pp-cms");
         $f3->set("css",array(
@@ -18,11 +26,12 @@ class CtlBase{
             "/node_modules/pp-validate/pp-validate.min.js",
             "/node_modules/pp-model.js/pp-model.min.js",
             "/node_modules/pp-router.js/pp-router.min.js",
+            "/node_modules/axios/dist/axios.min.js"
         ));
         $f3->set("meta",array(
             array("name"=>"viewport","content"=>"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0")
         ));
         $f3->set("content",$content);
-        echo \Template::instance()->render("admin/template.htm","text/html");
+        echo $this->minify(\Template::instance()->render("admin/template.htm","text/html"));       
     }	
 }
