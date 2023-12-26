@@ -1,5 +1,5 @@
 <div class="gray100 mt-10 pb-4 rounded shadow-2 flex flex-col justify-start w-96" >
-    <form action="/install" method="POST" autocomplete="off">
+    <form action="/api/db/install" method="POST" autocomplete="off">
         <input type="hidden" name="csrf" type="text" value="<?= ($CSRF) ?>" >
         <div class="green300 h-14 flex items-center">
             <span class="font-bold text-3xl pl-3 text-gray900" >Instalación</span>

@@ -25,5 +25,6 @@ try{
     $f3->set("DB.error.code",$e->getCode());
     $f3->set("DB.error.message",$e->getMessage());            
 }
+
 $f3->run();
 ?>

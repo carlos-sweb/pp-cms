@@ -12,5 +12,5 @@ class Admin extends CtlBase{
     }
     public function logout(){
         echo "logout";
-    }
+    }    
 }
