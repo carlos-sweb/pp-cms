@@ -1,0 +1,10 @@
+{
+    "title":"Installation",
+    "form":{
+        "database":"Database",
+        "username":"User",
+        "password":"Password",
+        "localhost":"Database Host"
+    },
+    "btnsubmit":"Install"
+}

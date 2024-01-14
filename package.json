@@ -16,6 +16,7 @@
     "pp-is": "^1.1.0",
     "pp-model.js": "^1.2.7",
     "pp-router.js": "^2.1.8",
-    "pp-validate": "^1.0.1"
+    "pp-validate": "^1.0.1",
+    "svg-country-flags": "github:hampusborgos/country-flags"
   }
 }
