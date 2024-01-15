@@ -21,10 +21,13 @@ class Api extends CtlBase{
         $data["post"] = $f3->get("POST");
         $data["maintainer"] = $maintainer;
         $data["action"] = $action;
-        $data["csrf"] = $f3->get("SESSION.csrf");        
+        $data["csrf"] = $f3->get("SESSION.csrf");
+        $data["language"] = $f3->get("SESSION.language");        
         $f3->set("SESSION.csrf_active",false);  
         
         echo json_encode($data);
+
+
         $ApiClassname = "Api".ucfirst($maintainer);
         if( class_exists($ApiClassname) ){
             if( method_exists($ApiClassname,$action) ){                

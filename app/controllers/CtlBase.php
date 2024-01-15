@@ -4,6 +4,11 @@ use DeviceDetector\DeviceDetector;
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
+use Pug\Pug;
+use Latte\Engine;
+use Symfony\Component\Yaml\Yaml;
+
+
 
 class CtlBase{
     protected $f3;
@@ -14,30 +19,32 @@ class CtlBase{
     protected $css_list = array(
         "/css/dist/master.css",
         "/fonts/Ubuntu/index.css"
-    );
-    
+    );    
     protected $js_list = array(                
-        "/node_modules/pp-is/pp-is.min.js",
-        "/node_modules/pp-events/pp-events.min.js",
-        "/node_modules/pp-validate/pp-validate.min.js",
-        "/node_modules/pp-model.js/pp-model.min.js",
-        "/node_modules/pp-router.js/pp-router.min.js",
-        "/node_modules/axios/dist/axios.min.js"
+        '/node_modules/pp-is/pp-is.min.js',
+        '/node_modules/pp-events/pp-events.min.js',
+        '/node_modules/pp-validate/pp-validate.min.js',
+        '/node_modules/pp-model.js/pp-model.min.js',
+        '/node_modules/pp-router.js/pp-router.min.js',
+        '/node_modules/axios/dist/axios.min.js',
+        '/js/install.js'
     );    
 
     function  __construct($f3){
-        
-                    
-
-      
         // The internal adapter
         $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(
-        // Determine root directory
-        $f3->get("SERVER.DOCUMENT_ROOT")
+            // Determine root directory
+            $f3->get("SERVER.DOCUMENT_ROOT")
         );
         // The FilesystemOperator
         $this->filesystem = new League\Flysystem\Filesystem($adapter);
-                
+            
+        $language = $f3->exists("PARAMS.language") ? $f3->get("PARAMS.language") : "en";
+        $f3->set("SESSION.language",$language);
+
+        $this->getLocale( $f3 , 'admin/en/install.yml');
+        
+                                          
 
         if( !$f3->exists("SESSION.csrf") && !$f3->exists("SESSION.csrf_active") ){
             $f3->set("SESSION.csrf",$f3->get("CSRF"));
@@ -56,23 +63,32 @@ class CtlBase{
         $clientHints = ClientHints::factory($_SERVER); // client hints are optional
         $dd = new DeviceDetector($userAgent, $clientHints);
         $dd->parse();
-        $f3->set("dd",$dd);
+        // $f3->set("dd",$dd);
         
     }
 
-    public function getLocale($f3 , $locale ){
-        $path = "/app/dict/views/".$locale;
-        try {
-            
+    public function getLocale( $f3 , $locale ){
+        
+        //$path = "/app/dict/views".$locale;
+        $path = '/app/dict/views/admin/'.$f3->get("SESSION.language").'/install.yml';    
+        try {            
             if( $this->filesystem->fileExists( $path ) ){
                 try {
                     $response = $this->filesystem->read( $path );                    
-                    $f3->set("locale",json_decode($response));                    
+                    try {
+                        $data = YAML::parse($response);                        
+                        $f3->set("locale", json_decode(json_encode($data)) );
+                    } catch (ParseException $exception) {
+                        printf('Unable to parse the YAML string: %s', $exception->getMessage());
+                    }
+                    
+                    
                 } catch (FilesystemException | UnableToReadFile $exception) {
                     // handle the error
                 }
+            }else{
+                echo "No existe";
             }
-
         } catch (FilesystemException | UnableToCheckExistence $exception) {
             // handle the error
         }
@@ -81,8 +97,6 @@ class CtlBase{
     }
 
     private function checkFormCsrf(){
-
-
 
     }
 
@@ -99,6 +113,9 @@ class CtlBase{
         return $html;
     }    
     public function render( $f3 , $content ){
+
+        print_r( $f3->get("locale.title"));
+
         $f3->set("title","pp-cms");
         $f3->set("css", $this->css_list );
         $f3->set("js",$this->js_list);
@@ -107,5 +124,51 @@ class CtlBase{
         ));
         $f3->set("content",$content);
         echo $this->minify(\Template::instance()->render("admin/template.htm","text/html"));       
-    }	
+    }
+
+    public function renderLatte( $f3 , $content ){
+        /*
+        $f3->set("title","pp-cms");
+        $f3->set("css", $this->css_list );
+        $f3->set("js",$this->js_list);
+        $f3->set("meta",array(
+            array("name"=>"viewport","content"=>"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0")
+        ));
+       
+        $params = array(
+            'title' => 'Hola a todos'
+        );
+
+      
+        $latte = new Latte\Engine; 
+        $f3->set("title","hello");
+        
+        echo "<pre>";
+        $a = (array) $f3;
+        $data = array();    
+        
+        foreach($a as $item){
+           // print_r( $item );
+            echo "---------------------------------";
+            $data = $item;
+            break;
+        }
+        
+    
+        echo "</pre>";
+        $latte->render($_SERVER['DOCUMENT_ROOT'].'/app/views/admin/install.latte',$data);
+        */
+        
+    }
+
+    public function renderPug( $f3 , $content){
+        
+        /*
+        $f3->set("title","Esto es un titutlo");                
+        echo Phug::renderFile($_SERVER["DOCUMENT_ROOT"]."/app/views/admin/install.pug", array(
+            'title' => 'Titulo de Ejemplo {{ @CSRF }}'
+        ) ) ;
+        */
+                     
+    }
 }

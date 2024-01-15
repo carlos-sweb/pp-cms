@@ -10,4 +10,4 @@
     <style>*{font-family: 'Ubuntu', sans-serif;}</style>
     <title><?= ($title) ?></title>
 </head>
-<body class="gray300 flex flex-col items-center justify-start w-full h-full select-none">
+<body class="gray300 flex flex-col items-center justify-start w-full h-full select-none hidden">

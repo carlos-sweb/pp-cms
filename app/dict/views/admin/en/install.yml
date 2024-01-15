@@ -1,0 +1,7 @@
+title: Instalación
+form:
+    database: Base de datos
+    username: Usuario
+    password: Contraseña
+    localhost: Anfitrión de la Base de datos
+btnsubmit: Instalar

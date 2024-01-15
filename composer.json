@@ -4,6 +4,9 @@
         "matomo/device-detector": "^6.2",
         "ikkez/f3-cortex": "^1.7",
         "xfra35/f3-access": "^1.2",
-        "league/flysystem": "^3.23"
+        "league/flysystem": "^3.23",
+        "phug/phug": "^1.12",
+        "latte/latte": "^3.0",
+        "symfony/yaml": "^7.0"
     }
 }
