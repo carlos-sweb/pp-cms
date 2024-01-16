@@ -8,9 +8,7 @@ use Pug\Pug;
 use Latte\Engine;
 use Symfony\Component\Yaml\Yaml;
 
-
-
-class CtlBase{
+class CtlBase extends \Prefab{
     protected $f3;
     public $filesystem;   
     protected $language = array(
@@ -30,7 +28,8 @@ class CtlBase{
         '/js/install.js'
     );    
 
-    function  __construct($f3){
+    function  __construct(){
+        $f3 = Base::instance();
         // The internal adapter
         $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(
             // Determine root directory
@@ -92,8 +91,6 @@ class CtlBase{
         } catch (FilesystemException | UnableToCheckExistence $exception) {
             // handle the error
         }
-        
-
     }
 
     private function checkFormCsrf(){
@@ -112,10 +109,9 @@ class CtlBase{
         $html = preg_replace('/\s*>\s*/', '>', $html);    
         return $html;
     }    
-    public function render( $f3 , $content ){
+    public function render($content ){
 
-        print_r( $f3->get("locale.title"));
-
+        $f3 = Base::instance();    
         $f3->set("title","pp-cms");
         $f3->set("css", $this->css_list );
         $f3->set("js",$this->js_list);
@@ -123,52 +119,8 @@ class CtlBase{
             array("name"=>"viewport","content"=>"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0")
         ));
         $f3->set("content",$content);
-        echo $this->minify(\Template::instance()->render("admin/template.htm","text/html"));       
+        echo $this->minify(\Template::instance()->render("admin/template.htm","text/html"));
+
     }
-
-    public function renderLatte( $f3 , $content ){
-        /*
-        $f3->set("title","pp-cms");
-        $f3->set("css", $this->css_list );
-        $f3->set("js",$this->js_list);
-        $f3->set("meta",array(
-            array("name"=>"viewport","content"=>"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0")
-        ));
-       
-        $params = array(
-            'title' => 'Hola a todos'
-        );
-
-      
-        $latte = new Latte\Engine; 
-        $f3->set("title","hello");
-        
-        echo "<pre>";
-        $a = (array) $f3;
-        $data = array();    
-        
-        foreach($a as $item){
-           // print_r( $item );
-            echo "---------------------------------";
-            $data = $item;
-            break;
-        }
-        
     
-        echo "</pre>";
-        $latte->render($_SERVER['DOCUMENT_ROOT'].'/app/views/admin/install.latte',$data);
-        */
-        
-    }
-
-    public function renderPug( $f3 , $content){
-        
-        /*
-        $f3->set("title","Esto es un titutlo");                
-        echo Phug::renderFile($_SERVER["DOCUMENT_ROOT"]."/app/views/admin/install.pug", array(
-            'title' => 'Titulo de Ejemplo {{ @CSRF }}'
-        ) ) ;
-        */
-                     
-    }
 }
