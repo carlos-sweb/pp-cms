@@ -23,5 +23,20 @@ class Config extends \Prefab{
         
         return $yaml;
     }
+    public static function getConfigView( $config ){        
+        $f3 = Base::instance();             
+        $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(
+            // Determine root directory
+            $f3->get("SERVER.DOCUMENT_ROOT")."/".$f3->get("UI").$config."/"
+        );
+        // The FilesystemOperator
+        $filesystem = new League\Flysystem\Filesystem($adapter);
+        $yaml = new \stdClass;
+        if( $filesystem->fileExists("config.yml") ){        
+            $response=$filesystem->read( "config.yml");
+            $yaml = YAML::parse($response);
+            Base::instance()->mset($yaml);        
+        }      
+    }
 }
 

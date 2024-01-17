@@ -5,7 +5,6 @@ use DeviceDetector\Parser\Device\AbstractDeviceParser;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 use Pug\Pug;
-use Latte\Engine;
 use Symfony\Component\Yaml\Yaml;
 
 class CtlBase extends \Prefab{
@@ -110,7 +109,6 @@ class CtlBase extends \Prefab{
         return $html;
     }    
     public function render($content ){
-
         $f3 = Base::instance();    
         $f3->set("title","pp-cms");
         $f3->set("css", $this->css_list );
@@ -120,7 +118,21 @@ class CtlBase extends \Prefab{
         ));
         $f3->set("content",$content);
         echo $this->minify(\Template::instance()->render("admin/template.htm","text/html"));
+    }
+    public function renderLatte( $config ){        
+        $f3 = Base::instance();        
+        $latte = new Latte\Engine;
+        $view = $f3->get("SERVER.DOCUMENT_ROOT")."/".$f3->get("UI").$config."/view.latte";
+        echo $this->minify( $latte->renderToString( $view , $f3->hive() ) );
+    }
+
+    public function renderPug(){
+        $f3 = Base::instance();
+        $f3->set("title","Hola a todos como estan hoy");
+        Phug::display('p=$title
+            h1.title ha', $f3->hive() );
 
     }
+
     
 }

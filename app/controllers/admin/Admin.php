@@ -1,41 +1,36 @@
 <?php
 
 class Admin extends CtlBase{
-    function  __construct(){
-        parent::__construct();
+    function __construct(){ parent::__construct();}
+    public function index(){
+        $f3 = Base::instance();        
+        Config::getConfigView('admin/install');
+        if( $f3->get('engine') == 'latte' ){ $this->renderLatte('admin/install'); }
     }
-    public function login(){
-        $f3 = Base::instance();
-        
+    public function logout(){
+        echo "logout";
+    }
+}
 
 
-        if( $f3->exists("DB.error.code") && $f3->exists("DB.error.message") ){
+/*
+
+if( $f3->exists("DB.error.code") && $f3->exists("DB.error.message") ){
             try{  
                 $f3->set("MyData",[
                     "name" => "Carlos",
                     "age" => 30
                 ]);
                 
-                $data = Config::get("data");
-                 
+                // $data = Config::get("data");                                                    
+                $this->renderPug($f3,"install.html");
                 
-              
-                
-                
-                //Example::instance()->show();
-
-                $this->render("install.htm");
-                // $this->renderPug($f3,"install.html");
-                // $this->renderLatte($f3,"install");
             }catch(Exception $e){
                 echo "Error";
             }
             
         }else{
             $this->render("login.htm" );
-        }        
-    }
-    public function logout(){
-        echo "logout";
-    }    
-}
+        } 
+
+*/        
