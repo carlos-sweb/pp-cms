@@ -9,15 +9,15 @@ use Symfony\Component\Yaml\Yaml;
 
 class CtlBase extends \Prefab{
     protected $f3;
-    public $filesystem;   
-    protected $language = array(
-        "en","es","pt"
-    );
-    protected $css_list = array(
+    public $filesystem;
+    protected $language = ["en","es","pt"];
+    protected $css_list = [
+        "/node_modules/flag-icons/css/flag-icons.css",
         "/css/dist/master.css",
         "/fonts/Ubuntu/index.css"
-    );    
-    protected $js_list = array(                
+    ];    
+    protected $js_list = [
+        '/node_modules/lucide/dist/umd/lucide.min.js',
         '/node_modules/pp-is/pp-is.min.js',
         '/node_modules/pp-events/pp-events.min.js',
         '/node_modules/pp-validate/pp-validate.min.js',
@@ -25,22 +25,36 @@ class CtlBase extends \Prefab{
         '/node_modules/pp-router.js/pp-router.min.js',
         '/node_modules/axios/dist/axios.min.js',
         '/js/install.js'
-    );    
+    ];
 
     function  __construct(){
+
         $f3 = Base::instance();
+
+        if( $f3->exists("PARAMS.language") ){
+            $languaje = $f3->get("PARAMS.language");
+            $page = $f3->get("PARAMS.page");
+            if( !in_array($languaje,$this->language) ){                
+                $url_reroute = $f3->get("SERVER.REQUEST_SCHEME")."://".$f3->get("SERVER.HTTP_HOST")."/en/".$page;
+                $f3->reroute($url_reroute);            
+            }
+        }
+        
+        
         // The internal adapter
         $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(
             // Determine root directory
-            $f3->get("SERVER.DOCUMENT_ROOT")
+            __DIR__."/../dict/views/"
         );
         // The FilesystemOperator
         $this->filesystem = new League\Flysystem\Filesystem($adapter);
             
         $language = $f3->exists("PARAMS.language") ? $f3->get("PARAMS.language") : "en";
-        $f3->set("SESSION.language",$language);
+        $page = $f3->get("PARAMS.page");
 
-        $this->getLocale( $f3 , 'admin/en/install.yml');
+        $f3->set("SESSION.language",$language);
+        
+        $this->getLocale( $f3 , 'admin/'.$language.'/'.$page);
         
                                           
 
@@ -67,8 +81,9 @@ class CtlBase extends \Prefab{
 
     public function getLocale( $f3 , $locale ){
         
-        //$path = "/app/dict/views".$locale;
-        $path = '/app/dict/views/admin/'.$f3->get("SESSION.language").'/install.yml';    
+        $path = $locale.".yml";
+            
+        
         try {            
             if( $this->filesystem->fileExists( $path ) ){
                 try {
@@ -85,7 +100,7 @@ class CtlBase extends \Prefab{
                     // handle the error
                 }
             }else{
-                echo "No existe";
+                echo "No existe ".$path;
             }
         } catch (FilesystemException | UnableToCheckExistence $exception) {
             // handle the error
@@ -109,6 +124,8 @@ class CtlBase extends \Prefab{
         return $html;
     }    
     public function render($content ){
+
+        
         $f3 = Base::instance();    
         $f3->set("title","pp-cms");
         $f3->set("css", $this->css_list );
@@ -117,7 +134,9 @@ class CtlBase extends \Prefab{
             array("name"=>"viewport","content"=>"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0")
         ));
         $f3->set("content",$content);
-        echo $this->minify(\Template::instance()->render("admin/template.htm","text/html"));
+        return $this->minify(\Template::instance()->render("admin/template.htm","text/html"));
+        
+        
     }
     public function renderLatte( $config ){        
         $f3 = Base::instance();        

@@ -5,3 +5,5 @@ form:
     password: Senha
     localhost: Host de banco de dados
 btnsubmit: Instalar
+flag: br
+flagtext: Portugués

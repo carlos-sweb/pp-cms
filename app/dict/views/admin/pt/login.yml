@@ -1,0 +1,8 @@
+title: Iniciar sessão
+form:    
+    username: Correio eletrônico
+    password: Senha    
+btnsubmit: Acessar
+forgot: Esqueceu sua senha?
+flag: br
+flagtext: Portugués

@@ -5,3 +5,5 @@ form:
     password: Contraseña
     localhost: Anfitrión de la Base de datos
 btnsubmit: Instalar
+flag: es-variant
+flagtext: Español 

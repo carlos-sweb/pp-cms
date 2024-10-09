@@ -5,3 +5,5 @@ form:
     password: Password
     localhost: Database Host
 btnsubmit: Install
+flag: us
+flagtext: English 

@@ -5,7 +5,9 @@ class Admin extends CtlBase{
     public function index(){
         $f3 = Base::instance();        
         Config::getConfigView('admin/install');
-        if( $f3->get('engine') == 'latte' ){ $this->renderLatte('admin/install'); }
+        // if( $f3->get('engine') == 'latte' ){ $this->renderLatte('admin/install'); }
+        $page = $f3->get('PARAMS.page');
+        echo $this->render($page.'.htm');
     }
     public function logout(){
         echo "logout";

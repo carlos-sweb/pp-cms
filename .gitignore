@@ -133,3 +133,9 @@ dist
 # php 
 
 vendor/
+
+#public
+
+public/css
+public/node_modules
+public/tmp
