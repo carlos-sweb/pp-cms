@@ -1,8 +1,0 @@
-title: Acceso
-form:    
-    username: Correo electrónico
-    password: Contraseña    
-btnsubmit: Acceder
-forgot: ¿ Olvidaste la contraseña ?
-flag: es-variant
-flagtext: Español 

@@ -1,38 +1,27 @@
 <?php
 
 class Admin extends CtlBase{
-    function __construct(){ parent::__construct();}
-    public function index(){
-        $f3 = Base::instance();        
-        Config::getConfigView('admin/install');
-        // if( $f3->get('engine') == 'latte' ){ $this->renderLatte('admin/install'); }
-        $page = $f3->get('PARAMS.page');
-        echo $this->render($page.'.htm');
+    
+    function __construct(){ 
+        parent::__construct();
     }
+    
+    public function index(){
+        $fw = Base::instance();                    
+        $page = $fw->exists("PARAMS.page") ? $fw->get('PARAMS.page') : "login";
+        ppCMSconfig::getConfigView($page);
+
+
+        // echo Cache::instance()->get("theme");
+        // echo "<br>";
+        // echo Cache::instance()->get("language");
+
+        // echo $this->render("admin/".$page.'/view.htm' , true );
+        echo "<pre>";
+        print_r($fw);
+    }
+
     public function logout(){
         echo "logout";
     }
-}
-
-
-/*
-
-if( $f3->exists("DB.error.code") && $f3->exists("DB.error.message") ){
-            try{  
-                $f3->set("MyData",[
-                    "name" => "Carlos",
-                    "age" => 30
-                ]);
-                
-                // $data = Config::get("data");                                                    
-                $this->renderPug($f3,"install.html");
-                
-            }catch(Exception $e){
-                echo "Error";
-            }
-            
-        }else{
-            $this->render("login.htm" );
-        } 
-
-*/        
+}      

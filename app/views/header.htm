@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html class="flex w-full h-full" >
+<head>
+    <meta charset="UTF-8">
+    <check if="{{ isset(@site.meta) }}" >
+        <repeat group="{{ @site.meta }}" key="{{ @k }}" value="{{ @v }}" >
+            <check if="{{ @k == 'charset' }}">
+                <true>
+                    <meta charset="{{@v}}"  >
+                </true>
+                <false>
+                    <meta name="{{@k}}" content="{{@v}}" >
+                </false>
+            </check>               
+        </repeat>
+    </check>       
+    <check if="{{ isset(@site.css) }}" >
+        <repeat group="{{ @site.css }}" value="{{ @link }}" >
+            <link rel="stylesheet" href="{{ @link }}">
+        </repeat>
+    </check>  
+    
+    <style>*{font-family: 'Ubuntu', sans-serif; }</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+    
+    <check if="{{ isset(@site.title) }}" ><title>{{@site.title}}</title></check>
+
+</head>
+
+<body 
+class="
+        deeppurple50 
+        flex 
+        flex-col 
+        items-center 
+        justify-start 
+        w-full 
+        h-full select-none
+">

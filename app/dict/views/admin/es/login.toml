@@ -1,0 +1,8 @@
+title="Login"
+btnsubmit="Go!"
+forgot="Forgot password ?"
+flag="us"
+flagtext="English"
+[form]
+username="E-mail"
+password="Password"

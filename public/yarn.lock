@@ -73,17 +73,24 @@ mime-types@^2.1.12:
   dependencies:
     mime-db "1.52.0"
 
+pp-element@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/pp-element/-/pp-element-1.0.1.tgz#d2ce2501a4593466dcf5d42cda214d99a5c99dfb"
+  integrity sha512-BQBtMH1QkX13w/gFEIRNTLcOIRKNeRm96I7G65yZm/0KMceeXm7cJloLqZq0Tp+VStE5iDRToei52oGczyA2MA==
+  dependencies:
+    pp-is "^1.0.2"
+
 pp-events@^1.0.9, pp-events@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/pp-events/-/pp-events-1.2.5.tgz#b2130aa70885c33513419ede0b876ab661f13225"
-  integrity sha512-YJmTPPoJZjzd8tF2yfj7yKxKn0PnKPHbASgSxkx2m0QdIHq8/jQ2EX9gzcKmNseQ+rFrRcaWM1Gsz812NEvrpw==
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/pp-events/-/pp-events-1.2.6.tgz#de3149516c6f80c04e952d3ee40de64bbf09a9fb"
+  integrity sha512-HNsOXTgUaUm3oRlNJJqfbebKu+9lqForegtd8HEmFod5CruDDJpGj+OxjoN19tzdKdNNwRr8F5rjOw4qzBFFGA==
   dependencies:
     pp-is "^1.2.1"
 
-pp-is@^1.0.0, pp-is@^1.0.1, pp-is@^1.0.4, pp-is@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/pp-is/-/pp-is-1.2.1.tgz#d5a3dac12cb60d03d1286e88e1104514251bd738"
-  integrity sha512-cIOAjR6ZqBY2FNnpEBw611vfskKcTvf3WrNVQ77JbX4WbMxWxQg4T/1RbqoH+z4enzgtsgOmIQ+VP/jtUYt3mw==
+pp-is@^1.0.0, pp-is@^1.0.1, pp-is@^1.0.2, pp-is@^1.0.4, pp-is@^1.2.1:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/pp-is/-/pp-is-1.2.3.tgz#11bad78d4207ee3e83711ba6312b68a03f9783bc"
+  integrity sha512-2Qp1z6PUlCMrsyUXIokki8/QxIpNNSwPh5n4BG8IigWqSB7dYS4y+DadFoC6JCGvGC/QHX2MEisf6G30J04hwA==
 
 pp-model.js@^1.2.7:
   version "1.2.7"

@@ -1,4 +1,4 @@
-<div class="flex flex-rows flex-grow w-full">
+<div class="flex flex-rows flex-grow w-full" id="root">
     <div class="flex flex-col gray50 br-blue500 w-60 border-right-gray300 border-right-solid border-2" >
         
         <div class="flex flex-col text-center pt-3 pb-1 text-deeppurple500">
@@ -8,21 +8,24 @@
         
         <div class="flex flex-col flex-grow p-2 text-deeppurple900">
 
-            <div class="flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">
+            <div class="menu-items flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">
                 <div class="flex flex-col justify-center"><i data-lucide="user"></i></div>
                 <div class="flex flex-col justify-center pl-1 w-full " ><span>Usuarios</span></div>
             </div>            
-            <div class="flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">                
+            <div class="menu-items flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">                
                 <div class="flex flex-col justify-center"><i data-lucide="database"></i></div>
                 <div class="flex flex-col justify-center pl-1 w-full " ><span>Base de datos</span></div>
             </div>            
-            <div class="flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">                
+            <div class="menu-items flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">                
                 <div class="flex flex-col justify-center"><i data-lucide="user"></i></div>
                 <div class="flex flex-col justify-center pl-1 w-full " ><span>Usuarios</span></div>
-            </div>   
-             
+            </div> 
+            <div class="menu-items flex flex-row p-2 gray200 hover:deeppurple100 rounded cursor-pointer mt-2">
+                <div class="flex flex-col justify-center"><i data-lucide="file-json-2"></i></div>
+                <div class="flex flex-col justify-center pl-1 w-full " ><span>API Json</span></div>
+            </div>
             
-            
+                                                    
                                
         </div>
         
@@ -32,14 +35,13 @@
         <div class="flex w-full h-16 gray50 border-bottom-gray300 border-bottom-solid border-2 justify-end">
             <div class="grid content-center pl-2 pr-2">
                 <div class="flex h-4 text-deeppurple900 p-3 gray300 rounded cursor-pointer">
-                    <div class="flex"><img src="http://localhost/node_modules/circle-flags/flags/{{@locale->flag}}.svg" ></div>
-                    <div class="flex"><span>&nbsp;{{@locale->flagtext}}&nbsp;</span></div>
+                    <div class="flex"><img src="http://localhost/node_modules/circle-flags/flags/<?= ($locale->flag) ?>.svg" ></div>
+                    <div class="flex"><span>&nbsp;<?= ($locale->flagtext) ?>&nbsp;</span></div>
                     <div class="flex flex-col"><i data-lucide="chevron-down"></i></div>                
                 </div>      
             </div>            
         </div>
-        <div class="flex flex-wrap flex-grow flex-col bluegray50">
-            
+        <div class="flex flex-wrap flex-grow flex-col bluegray50">            
             <div class="flex flex-row p-2">
                 
                 <div class="flex flex-col flex-grow rounded shadow p-8 gray100">                    

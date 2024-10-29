@@ -1,8 +1,0 @@
-title: Login
-form:    
-    username: E-mail
-    password: Password    
-btnsubmit: Go!
-forgot: Forgot password ?
-flag: us
-flagtext: English 
