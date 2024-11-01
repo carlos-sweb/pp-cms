@@ -7,8 +7,8 @@ use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 
 
 class CtlBase extends \Prefab{
-    protected $dd; // Device Detector
-    protected $f3;
+    protected $dd; // Device Detector    
+    protected $browserLang;
     public $filesystem;    
     protected $js_list = [
         '/node_modules/lucide/dist/umd/lucide.min.js',
@@ -21,52 +21,65 @@ class CtlBase extends \Prefab{
         '/node_modules/axios/dist/axios.min.js',
     ];
 
-    function  __construct(){
+    private function db_connect (){
 
-        $f3 = Base::instance();                        
+        $f3 = Base::instance();
+
+        $options = array(
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,// generic attribute
+            \PDO::ATTR_PERSISTENT => TRUE,// we want to use persistent connections
+            \PDO::MYSQL_ATTR_COMPRESS => TRUE,// MySQL-specific attribute
+        );
+
+        try{
+        // Creando la conexion.    
+            $db = new \DB\SQL( $f3->get('db.driver').':host='.$f3->get('db.host').';port=3306;dbname='.$f3->get('db.dbname').';charset=utf8',$f3->get('db.user'),$f3->get('db.pwd') , $options );            
+            
+        }catch( PDOException $e ){
+            $f3->set( "DB.error.code" , $e->getCode() );
+            $f3->set( "DB.error.message" , $e->getMessage() );            
+        }
+
+        if( !is_null($db) ){ 
+            $f3->set("DB",$db);
+        }
+    }
+
+    function  __construct(  ){
+
+        self::db_connect();        
+        $f3     = Base::instance();
+        $cache  = Cache::instance();        
+        $str_td = "site.theme.default";
+        $site_theme_default = $f3->exists( $str_td ) ? $f3->get( $str_td ) : null ;
+        // Abreviación del string theme support
+        $str_ts = "site.theme.support";
+        $site_theme_support = $f3->exists( $str_ts ) ? 
+            $f3->get( $str_ts ) 
+            : null ;
+                
+
+        
+
+
+        $this->browserLang = substr($f3->get('HEADERS.Accept-Language'), 0, 2);
         // The internal adapter
         $adapter = new League\Flysystem\Local\LocalFilesystemAdapter( __DIR__."/../dict/views/" );
         // The FilesystemOperator
         $this->filesystem = new League\Flysystem\Filesystem($adapter);
             
-        $language = $f3->exists("PARAMS.language") ? $f3->get("PARAMS.language") : "en";
-
-        //Cache::instance()->set("lang",$language);
-
+        $language = $f3->exists("PARAMS.language") ? $f3->get("PARAMS.language") : "en";        
         $page = $f3->get("PARAMS.page");
-
-        // $f3->set("SESSION.language",$language);
-        
-        
-        
-        /*
-        if( !$f3->exists("SESSION.csrf") && !$f3->exists("SESSION.csrf_active") ){
-            $f3->set("SESSION.csrf",$f3->get("CSRF"));
-            $f3->set("SESSION.csrf_active",true);      
-        }else{
-            if( !$f3->get("SESSION.csrf_active") ){
-                $f3->set("SESSION.csrf",$f3->get("CSRF"));
-                $f3->set("SESSION.csrf_active",true);  
-            }
-        }*/
-        
         // $f3->set("access",Access::instance());                
         //$f3->get("access")->deny("/api*","public");
-
 
         AbstractDeviceParser::setVersionTruncation(AbstractDeviceParser::VERSION_TRUNCATION_NONE);
         $userAgent = $f3->get("SERVER.HTTP_USER_AGENT"); // change this to the useragent 
         $clientHints = ClientHints::factory($_SERVER); // client hints are optional
         $this->dd = new DeviceDetector($userAgent, $clientHints);
-        $this->dd->parse();
+        $this->dd->parse();        
 
 
-
-
-
-        
-        // $f3->set("dd",$dd);
-        
     }
 
     
@@ -87,10 +100,10 @@ class CtlBase extends \Prefab{
     }    
     public function render( $content , $minify = true ){
     
-        $fw = Base::instance();        
-        $fw->set("js",$this->js_list);
+        $f3 = Base::instance();        
+        $f3->set("js",$this->js_list);
 
-        $fw->set("content",$content);
+        $f3->set("content",$content);
         $html = \Template::instance()->render("template.htm","text/html");
 
         return $minify ? $this->minify($html) : $html;

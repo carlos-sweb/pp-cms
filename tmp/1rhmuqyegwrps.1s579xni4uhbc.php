@@ -27,14 +27,4 @@
     <?php if (isset($site['title'])): ?><title><?= ($site['title']) ?></title><?php endif; ?>
 
 </head>
-
-<body 
-class="
-        deeppurple50 
-        flex 
-        flex-col 
-        items-center 
-        justify-start 
-        w-full 
-        h-full select-none
-">
+<body class="flex flex-col items-center justify-start w-full h-full select-none">    

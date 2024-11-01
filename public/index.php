@@ -17,13 +17,19 @@ use GraphQL\Type\Definition\Type;
 
 // looking dad
 //  https://webonyx.github.io/graphql-php/getting-started/
+$f3 = Base::instance();
+//ppCMSconfig::instance()->loadInit();
 
-ppCMSconfig::instance()->loadInit();
+$sessionCache = new Cache( 'folder='.__DIR__.'/../var/session' );
+$sess = new Session( null , "CSRF" , $sessionCache );
+$f3->config("./../app/config/globals.ini");
+$f3->config("./../app/config/routes.ini");
+$f3->config("./../app/config/site.ini");
+$f3->run();
 
-$fw = Base::instance();
 
 
-// $fw->set("COOKIE.theme","dark",60);
+// $f3->set("COOKIE.theme","dark",60);
 //$cache->set("theme","dark");
 
 /*
@@ -35,45 +41,13 @@ try{
 }
 */
 
-//$fw->config(__DIR__."/../config.ini",true);
-//$fw->config(__DIR__."/../routes.ini");
+//$f3->set("db",new \DB\SQL('sqlite:'.__DIR__.'/../db.sqlite'));
+// $f3->redirect('GET|POST /', $url_reroute );
+// $f3->route('GET|POST /','PublicWWW->index');
+
 
 /*
-$options = array(
-  \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,// generic attribute
-  \PDO::ATTR_PERSISTENT => TRUE,// we want to use persistent connections
-  \PDO::MYSQL_ATTR_COMPRESS => TRUE,// MySQL-specific attribute
-);
-
-try{
-    $db = new \DB\SQL('mysql:host='.$fw->get('db.HOST').';port=3306;dbname='.$fw->get('db.NAME').';charset=utf8',$fw->get('db.USER'),$fw->get('db.PASS'), $options);
-}catch( PDOException $e){
-    $fw->set("DB.error.code",$e->getCode());
-    $fw->set("DB.error.message",$e->getMessage());            
-}
-*/
-
-/*
-$db=new DB\SQL(
-    'mysql:host=localhost;port=3306;dbname=ppcms',
-    'root',
-    'C4rl0sim',    
-);
-$fw->set("DB",$db);
-*/
-
-//$fw->set("db",new \DB\SQL('sqlite:'.__DIR__.'/../db.sqlite'));
-
-
-// $fw->redirect('GET|POST /', $url_reroute );
-// $fw->route('GET|POST /','PublicWWW->index');
-
-$fw->route('GET|POST @index: /','Admin->index');
-
-$fw->route('GET|POST /@language/admin/','Admin->index');
-$fw->route('GET|POST /@language/admin/@page','Admin->index');
-
-$fw->route('GET|POST /api',function(){
+$f3->route('GET|POST /api',function(){
     // ------------------------------------------------
     // Trabajar con Altair para Pruebas
 
@@ -116,41 +90,12 @@ $fw->route('GET|POST /api',function(){
         echo json_encode($output, JSON_THROW_ON_ERROR);
     // ------------------------------------------------
 });
-
-// $fw->set("ONERROR","Main\Handle_error->e");
-
-/*
-$fw->set('ONERROR',
-    function($fw) {
-        // custom error handler code goes here
-        // use this if you want to display errors in a
-        // format consistent with your site's theme        
-        echo $fw->get('ERROR.text');
-    }
-);
-
 */
-
-
-/*
-    $fw   = Base::instance();
-    $db = $fw->get("DB");
-    $crypt = \Bcrypt::instance();
-    $pwd = $crypt->hash( "clave" ,  $fw->get("hash")  );
-    
-    $fw->get("DB")->exec("INSERT INTO users( mail , pwd ) VALUES ( \"c4rl0sill3sc4@gmail.com\" , \"".$pwd."\" ) ");
-    */
-
-$fw->route("GET /hola [cli]", function(){
-    echo "hola a todos";
-});
-
-$fw->run();
+// Solo funciona si estas dentro de la carpeta public
+//$f3->route("GET /hola [cli]","Cli->index");
 
 /*
-
 curl 'http://localhost/api' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'Origin: altair://-' --data-binary '{"query":"query{echo(message:\"carlos Illesca\")}","variables":{}}' --compressed
-
 */
 ?>
 

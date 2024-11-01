@@ -2,6 +2,13 @@
  <script type="text/javascript" src="<?= ($script) ?>" ></script>
 <?php endforeach; ?>
 
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+<script>
+    
+   
+    
+
+</script>
 
 <script type="text/javascript">
     /*Declare root html element*/
@@ -13,7 +20,16 @@
      {
      "/":{
          controller:function(){
-                          
+            
+            var elem = ppElement(".change-mode");
+
+            elem.on("click",function(e , el ){                                
+                const mode = el.elem.getAttribute("data-mode");
+                console.log(mode);
+                Cookies.set('theme', mode, { expires: 7, path: 'http://localhost/' }) 
+            });
+            
+
              
          }
      },
@@ -43,7 +59,7 @@
  router.removeRoute("/route-remove");
  
  /* If you want to default redirect */
- router.redirect("/usuarios");
+ router.redirect("/");
  
  /* If you want to default Function for noFound state */
  
@@ -52,7 +68,7 @@
  }
  
  /* getting enjoy you router */
- //router.start("usuarios");
+ router.start("/");
  /* if you want */
  /* router.start("/my-url-base"); */
  </script>

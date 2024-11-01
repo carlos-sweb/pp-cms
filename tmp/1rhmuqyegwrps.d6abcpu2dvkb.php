@@ -3,7 +3,9 @@
         
         <div class="flex flex-col text-center pt-3 pb-1 text-deeppurple500">
             <span><i data-lucide="layout-dashboard" ></i></span>            
-            <span class="font-bold text-3xl">pP&nbsp;cMs</span>
+            <span class="font-bold text-3xl">
+                <?php if ($site['title']): ?><?= ($site['title']) ?><?php endif; ?>
+            </span>
         </div>
         
         <div class="flex flex-col flex-grow p-2 text-deeppurple900">
