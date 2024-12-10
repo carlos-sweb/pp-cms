@@ -1,5 +1,9 @@
 <?php
 
+
+
+namespace Admin;
+
 use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 
@@ -12,20 +16,9 @@ class ppCMSconfig extends \Prefab{
 
     private static $path_config = __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."app".DIRECTORY_SEPARATOR."config".DIRECTORY_SEPARATOR;
 
-    public static function loadInit(){
-            
-        $fw = Base::instance();        
-        $fw->config(self::$ini_config);
-        //$fw->config(self::$ini_db);
-        //$fw->config(self::$ini_site);
-        //$fw->config(self::$ini_routes);
-
- 
+    
+    public static function getConfigLocale( $f3, $config ){
         
-    }
-    public static function getConfigLocale( $config ){
-
-        $f3 = Base::instance();
         $path = $f3->get("SERVER.DOCUMENT_ROOT").DIRECTORY_SEPARATOR.$f3->get("UI").DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR.$config;
         $adapter = new League\Flysystem\Local\LocalFilesystemAdapter($path);
         $filesystem = new League\Flysystem\Filesystem($adapter);
@@ -40,14 +33,15 @@ class ppCMSconfig extends \Prefab{
         }
 
     }
-    public static function loadConfigView( $config ){
+    public static function loadConfigView( $f3 , $config ){
 
-        $fw = Base::instance();
-        $path = $fw->get("SERVER.DOCUMENT_ROOT").DIRECTORY_SEPARATOR.$fw->get("UI").DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR.$config;        
+        
+        $path = $f3->get("SERVER.DOCUMENT_ROOT").DIRECTORY_SEPARATOR.$f3->get("UI").DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR.$config;        
         $adapter = new League\Flysystem\Local\LocalFilesystemAdapter($path);
         $filesystem = new League\Flysystem\Filesystem($adapter);
         if( $filesystem->fileExists("config.ini") ){
-            $fw->config( $path."/config.ini" );        
+            echo "Carganfh....";
+            $f3->config( $path."/config.ini" );        
         }
         // $logger = new Log("view_error.log");
         // $logger->write("No se encuentra el archivo toml => ". $config  );

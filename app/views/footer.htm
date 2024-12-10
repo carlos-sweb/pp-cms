@@ -1,46 +1,24 @@
+<check if="{{ isset(@js)}}">
 <repeat group="{{ @js }}" value="{{ @script }}" >
  <script type="text/javascript" src="{{ @script }}" ></script>
 </repeat>
+</check>
 
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-<script>
+
     
    
-    
-
-</script>
-
 <script type="text/javascript">
-    /*Declare root html element*/
- var root = document.getElementById("root");
  
- /*Declare router here*/
- var router = new ppRouter(
-     /*How to use it ?*/
-     {
-     "/":{
-         controller:function(){
-            
-            var elem = ppElement(".change-mode");
+ var router = new ppRouter({
+    "/":{
+        "controller":function(){
+            const root  = document.getElementById("root");
+            root.innerHTML = "<h1 class=\"text-bluegray500\">Hello I Am Here </h1>";
+        }
+    }
+ });
 
-            elem.on("click",function(e , el ){                                
-                const mode = el.elem.getAttribute("data-mode");
-                console.log(mode);
-                Cookies.set('theme', mode, { expires: 7, path: 'http://localhost/' }) 
-            });
-            
 
-             
-         }
-     },
-     "/route-remove":{
-         controller:function(){
-             root.innerHTML = `<h1>Route Remove</h1>`;
-         }
-     }
-     }
- );
- 
  router.addRoute("/usuarios",{
     controller:function( params){
 
