@@ -4,10 +4,29 @@
 </repeat>
 </check>
 
-
-    
    
 <script type="text/javascript">
+
+const email = "root@gmail.com";
+const password = "clave";
+
+var query = /* GraphQL */`query login($email:String!,$password:String!){login(email:$email,password:$password)}`
+
+fetch("/api", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+  body: JSON.stringify({
+    query,
+    variables: { email , password },
+  }),
+})
+.then(r => r.json())
+.then(data => console.log("data returned:", data ))
+
+
  
  var router = new ppRouter({
     "/":{
@@ -50,6 +69,5 @@
  /* if you want */
  /* router.start("/my-url-base"); */
  </script>
-
 
 </body></html>

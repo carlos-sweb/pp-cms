@@ -1,8 +1,0 @@
-CREATE TABLE `users` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,  
-  `mail` VARCHAR(60) NOT NULL ,
-  `pwd` VARCHAR(60) NOT NULL ,  
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `updated_at` TIMESTAMP NULL DEFAULT NULL ,
-  `active` INT(1) NOT NULL DEFAULT '1' ,
-  PRIMARY KEY (`id`), UNIQUE (`mail`));

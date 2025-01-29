@@ -1,6 +1,8 @@
 <?php
 namespace Admin;
 use Base\adminbase;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class admin extends adminbase{
     protected $f3;
@@ -16,16 +18,53 @@ class admin extends adminbase{
     ];
     function __construct( $f3 ){     
        parent::__construct( $f3 );
-    }
-    
-    public function index( $f3 ){        
-        $lang = $f3->get("SESSION.language");
-        
+   }
+
+    public function index( $f3 ){
+
+
+         
+        $lang = $f3->get("SESSION.language");        
         //$page = $f3->exists("PARAMS.page") ? $f3->get('PARAMS.page') : "login";
         //ppCMSconfig::loadConfigView( $f3, "login");
         $f3->config("./../app/views/admin/login/config.ini");
         $f3->set("js",$this->js_list);
+        /*   
+
+        $key = 'example_key';
+        $payload = [
+            'iss' => 'http://example.org',
+            'aud' => 'http://example.com',
+            'iat' => 1356999524,
+            'nbf' => 1357000000
+        ];
+
+        $jwt = JWT::encode($payload, $key, 'HS256');
+
+        $f3->set('COOKIE.token',$jwt);
+        
+        //$decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+        //print_r($decoded);
+
+        $pwd_peppered = hash_hmac("sha256", "clave", "deokdoeodkoe");
+
+        echo $pwd_peppered."<br>";
+
+        $clave = '$argon2i$v=19$m=65536,t=4,p=1$V7hOzUHNrLYIjhLIQyvDoA$/Jjj/THsGHbwUQaOx4ZriTE66zV4Tei8Cne9Nr4WFpw';
+
+           if( password_verify('clave',$clave) ){
+            echo "Esta Bien<br>";
+        }else{
+            echo "Esta mal<br>";
+        }
+
+        */
+
+
+
         echo $this->render( $f3 , "admin/login" , false );
+        
+   
         
         /*
         $user = new User();        

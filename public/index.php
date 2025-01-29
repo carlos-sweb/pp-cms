@@ -23,14 +23,12 @@ foreach( $ini_files as $ini ){
     $f3->config("./../app/config/".$ini.".ini");
 }
 
-/*
-$f3->route('GET|POST /api',function(){
-    // ------------------------------------------------
-    // Trabajar con Altair para Pruebas
 
-      
-});
-*/
+$db = new DB\SQL('mysql:host=localhost;port=3306;dbname=ppcms','root','C4rl0sim');
+
+$f3->set("DB",$db);
+
+
 $f3->run();
 /*
 curl 'http://localhost/api' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'Origin: altair://-' --data-binary '{"query":"query{echo(message:\"carlos Illesca\")}","variables":{}}' --compressed

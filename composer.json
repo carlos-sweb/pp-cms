@@ -4,6 +4,8 @@
         "matomo/device-detector": "^6.2",
         "xfra35/f3-access": "^1.2",
         "league/flysystem": "^3.23",
-        "webonyx/graphql-php": "*"
+        "webonyx/graphql-php": "*",
+        "firebase/php-jwt": "^6.10",
+        "hidehalo/nanoid-php": "^2.0"
     }
 }
